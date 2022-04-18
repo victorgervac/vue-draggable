@@ -1,4 +1,5 @@
 <template>
+<!--draggable board item -->
 <div class="indi-name">{{ superhero.name }}</div>
 </template>
 <script>

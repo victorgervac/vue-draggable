@@ -1,75 +1,40 @@
+/* eslint-disable no-unused-vars */
 <template>
+<div>
   <h1>Rate Your Hero</h1>
-  <div class="draging-message">{{draggingAction}}</div>
-  <div class="full-card">
-    <div class="rated-card">
-      <h3 class="card-tittle">Your Ratting</h3>
-      <draggable
-        class="list-group"
-        :list="list1"
-        group="people"
-        @change="log"
-        itemKey="name"
-        @start="dragging = true"
-        @end="dragging = false"
-      >
-      <template  #header>
-      <div v-if="!list1.length" class="empty-square">Drop Here</div>
-      </template>
-   <template #item="{ element, index }">
-          <div class="single-option">{{ element.name }} {{ ++index }}</div>
-        </template>
-          </draggable>
-    </div>
-
-    <div class="choices-card">
-      <h3 class="card-tittle">Choices</h3>
-      <draggable
-        class="list-group"
-        :list="list2"
-        group="people"
-        @change="log"
-        itemKey="name"
-        @start="dragging = true"
-        @end="dragging = false"
-      >
-         <template #footer>
-     <p v-if="!list2.length" class="empty-square">No Options</p>
-  </template>
-        <template #item="{ element}">
-        <div class="single-option">
-        <MovieName :superhero="element"
-        :class="list-group-item"/>
-        </div>
-
-        </template>
-      </draggable>
-    </div>
-    <!-- <rawDisplayer class="col-3" :value="list1" title="List 1" /> -->
-    <!-- <rawDisplayer class="col-3" :value="list2" title="List 2" /> -->
+    <DraggableBoard
+      :items="list1"
+      name="Your Rate"
+      @log="log($event)"
+      emptyMessage="Drop Here"
+    />
+    <DraggableBoard
+      :items="list2"
+      name="Choices" @log="log($event)"
+      emptyMessage="No More options"
+     />
   </div>
 </template>
 <script>
 
-import draggable from 'vuedraggable';
-import MovieName from './MovieName.vue';
+// import draggable from 'vuedraggable';
+// import MovieName from './MovieName.vue';
+import DraggableBoard from './DraggableBoard.vue';
 
 export default {
   name: 'TwoDraggableExample',
   // display: 'Two Lists',
   // order: 1,
   components: {
-    draggable,
-    MovieName,
+    // draggable,
+    // MovieName,
+    DraggableBoard,
   },
   data() {
     return {
       list1: [
       ],
       list2: [
-        { name: 'Clarkson', id: 5 },
-        { name: 'Peter Parker', id: 6 },
-        { name: 'Bruce Wayne', id: 7 },
       ],
       dragging: false,
     };
@@ -80,43 +45,59 @@ export default {
     },
   },
   methods: {
-    setItem(key, item) {
+    setItems(key, item) {
       const stringified = JSON.stringify(item);
       localStorage.setItem(key, stringified);
     },
-    getItem(key) {
+    getItems(key) {
       return JSON.parse(localStorage.getItem(key));
     },
-    watch: {
-      list2(newSuperhero) {
-        localStorage.superhero = newSuperhero;
-      },
-      list1(newSuperhero) {
-        localStorage.superhero = newSuperhero;
-      },
+    logAdded(board, item) {
+      console.log('added', board, item);
+      const boardItems = [item, ...this.getItems(board)];
+      this.setItems(board, boardItems);
+      // const items = [item, this.getItem('boardName')]
+      // then set item
+      // - replace items in local storage
+      // add item to approprate list
     },
-    add() {
-      console.log('name moved');
-      // this.list.push({ name: 'Juan' });
-    },
-    replace() {
-      this.list = [{ name: 'Edgard' }];
-    },
-    clone(el) {
-      return {
-        name: `${el.name} cloned`,
-      };
+    logRemoved(board, item) {
+      console.log('removed', board, item);
+      const boardItems = this.getItems(board).filter((c) => c.name !== item.name);
+      this.setItems(board, boardItems);
+      debugger;
+      // const items = this.getItem('boardName').filter(c => c.name != item.name)
+      // save item to local storage
+      // add item to approprate list
     },
     log(evt) {
-      window.console.log(evt);
+      // check the type of log
+      const isRemoved = Object.keys(evt).includes('removed');
+      const isAdded = Object.keys(evt).includes('added');
+      if (isRemoved) this.logRemoved(evt.board, evt.removed.element);
+      if (isAdded) this.logAdded(evt.board, evt.added.element);
+
+      // call method per log type aka added, removed  & passs in the board + data
+
+      // console.log('two drggable example log', evt, isRemoved, isAdded);
     },
   },
   mounted() {
+    // testing stuff change it later
+    const defaultItems2 = [{ name: 'Clarkson', id: 5 },
+      { name: 'Peter Parker', id: 6 },
+      { name: 'Bruce Wayne', id: 7 }];
+    this.setItems('list2', defaultItems2);
+    const defaultItems1 = [];
+    this.setItems('list1', defaultItems1);
+    // getitems
+    this.list1 = this.getItems('list1');
+    this.list2 = this.getItems('list2');
   },
 };
 </script>
 <style>
-  .full-card{
+  /* .full-card{
     background-color: #EBECF0;
     display: flex;
     justify-content: space-around;
@@ -155,7 +136,7 @@ export default {
     color: red;
     font-weight: bold;
 
-  }
+  } */
 /* .list-group{
     border: 2px solid #526070;
     padding: .5em;
