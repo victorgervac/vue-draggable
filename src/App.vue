@@ -1,15 +1,19 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1>Rate The Movie</h1>
+  <VueDraggableExample/>
+  <TwoDraggableExample/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import VueDraggableExample from './components/VueDraggableExample.vue';
+import TwoDraggableExample from './components/TwoDraggableExample.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    VueDraggableExample,
+    TwoDraggableExample,
+
   },
 };
 </script>
