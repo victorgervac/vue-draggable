@@ -5,31 +5,31 @@
     <img width='100' src="https://raw.githubusercontent.com/victorgarciaesgi/vue-chart-3/main/media/logo.svg" alt="sgts logo">
   </a>
 </p>
-# vue-draggable
+#vue-draggable
 *This used with vue and typescript 
 
 ##library source
 *Where to download Library
 [Draggable](https://sortablejs.github.io/vue.draggable.next/#/two-lists)
 
-### Executing program
-## Project setup
+###Executing program
+##Project setup
 
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+###Compiles and hot-reloads for development
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+###Compiles and minifies for production
 ```
 yarn build
 ```
 
-### Lints and fixes files
+###Lints and fixes files
 ```
 yarn lint
 ```
