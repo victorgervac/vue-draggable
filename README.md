@@ -6,7 +6,6 @@
   </a>
 </p>
 # vue-draggable
-* This used with vue and typescript 
 
 ## library source
 * Where to download Library
