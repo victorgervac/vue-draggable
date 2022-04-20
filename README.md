@@ -1,6 +1,13 @@
 # vue-draggable
+*This used with vue and typescript 
 
+##library source
+* Where to download Library
+[Draggable](https://sortablejs.github.io/vue.draggable.next/#/two-lists)
+
+### Executing program
 ## Project setup
+
 ```
 yarn install
 ```
