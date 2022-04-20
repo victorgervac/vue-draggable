@@ -1,8 +1,15 @@
+# Draggable.vue 3 for Vue 2 and Vue 3
+
+<p align="center">
+  <a href='https://sortablejs.github.io/vue.draggable.next/#/two-lists'>
+    <img width='100' src="https://raw.githubusercontent.com/victorgarciaesgi/vue-chart-3/main/media/logo.svg" alt="sgts logo">
+  </a>
+</p>
 # vue-draggable
 *This used with vue and typescript 
 
 ##library source
-* Where to download Library
+*Where to download Library
 [Draggable](https://sortablejs.github.io/vue.draggable.next/#/two-lists)
 
 ### Executing program
